@@ -60,7 +60,7 @@
                                         shift, width,
                                         weight, circle.length,
                                         method,
-                                        PACKAGE="IRanges")
+                                        PACKAGE="IRangesGHA")
 
     if (is.na(circle.length))
         return(ans)
@@ -172,7 +172,7 @@ coverage_CompressedIRangesList <-
                            shift, width,
                            weight, circle.length,
                            method,
-                           PACKAGE="IRanges")
+                           PACKAGE="IRangesGHA")
 
     ## "Fold" the coverage vectors in 'ans_listData' associated with a
     ## circular sequence.

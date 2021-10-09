@@ -98,17 +98,17 @@ setMethod("width", "NCList", function(x) width(x@ranges))
 ### Returns an external pointer to the NCList C struct.
 .NCList_xp <- function(x_start, x_end, x_subset)
 {
-    ans <- .Call2("C_new_NCList", PACKAGE="IRanges")
+    ans <- .Call2("C_new_NCList", PACKAGE="IRangesGHA")
     reg.finalizer(ans,
-        function(e) .Call("C_free_NCList", e, PACKAGE="IRanges")
+        function(e) .Call("C_free_NCList", e, PACKAGE="IRangesGHA")
     )
-    .Call2("C_build_NCList", ans, x_start, x_end, x_subset, PACKAGE="IRanges")
+    .Call2("C_build_NCList", ans, x_start, x_end, x_subset, PACKAGE="IRangesGHA")
 }
 
 .nclist <- function(x_start, x_end, x_subset=NULL)
 {
     nclist_xp <- .NCList_xp(x_start, x_end, x_subset)
-    .Call2("C_new_NCListAsINTSXP_from_NCList", nclist_xp, PACKAGE="IRanges")
+    .Call2("C_new_NCListAsINTSXP_from_NCList", nclist_xp, PACKAGE="IRangesGHA")
 }
 
 NCList <- function(x, circle.length=NA_integer_)
@@ -134,7 +134,7 @@ print_NCList <- function(x)
     if (!is(x, "NCList"))
         stop("'x' must be an NCList object")
     .Call2("C_print_NCListAsINTSXP", x@nclist, start(x@ranges), end(x@ranges),
-                                     PACKAGE="IRanges")
+                                     PACKAGE="IRangesGHA")
     invisible(NULL)
 }
 
@@ -211,7 +211,7 @@ findOverlaps_NCList <- function(query, subject,
            start(subject), end(subject),
            nclist, nclist_is_q,
            maxgap, minoverlap, type, select, circle.length,
-           PACKAGE="IRanges")
+           PACKAGE="IRangesGHA")
 }
 
 
@@ -367,7 +367,7 @@ find_overlaps_in_groups_NCList <- function(
            start(s), end(s), s_space, s_groups,
            nclists, nclist_is_q,
            maxgap, minoverlap, type, select, circle.length,
-           PACKAGE="IRanges")
+           PACKAGE="IRangesGHA")
 }
 
 

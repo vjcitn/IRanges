@@ -227,7 +227,7 @@ validate_Ranges <- function(x)
     x_width <- width(x)
     validity_failures <- .Call2("C_validate_Ranges",
                                 x_start, x_end, x_width,
-                                PACKAGE="IRanges")
+                                PACKAGE="IRangesGHA")
     if (!is.null(validity_failures))
         return(validity_failures)
     if (!(is.null(names(x_start)) &&

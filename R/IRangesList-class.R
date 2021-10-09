@@ -109,7 +109,7 @@ setAs("SimpleIntegerRangesList", "SimpleIRangesList",
 setMethod("isNormal", "SimpleIRangesList",
     function(x, use.names=FALSE)
         .Call2("C_isNormal_SimpleIRangesList", x, use.names,
-                                               PACKAGE="IRanges")
+                                               PACKAGE="IRangesGHA")
 )
 
 
@@ -212,11 +212,11 @@ setAs("RleList", "SimpleNormalIRangesList",
 
 setMethod("max", "SimpleNormalIRangesList",
     function(x, ..., na.rm)
-        .Call2("C_max_SimpleNormalIRangesList", x, PACKAGE="IRanges")
+        .Call2("C_max_SimpleNormalIRangesList", x, PACKAGE="IRangesGHA")
 )
 
 setMethod("min", "SimpleNormalIRangesList",
     function(x, ..., na.rm)
-        .Call2("C_min_SimpleNormalIRangesList", x, PACKAGE="IRanges")
+        .Call2("C_min_SimpleNormalIRangesList", x, PACKAGE="IRangesGHA")
 )
 

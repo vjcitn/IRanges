@@ -369,7 +369,7 @@ setCompressedListSummaryMethod <- function(fun, where=topenv(parent.frame()))
 {
     setCompressedNumericalListMethod(fun, function(x, na.rm = FALSE) {
         stopifnot(isTRUEorFALSE(na.rm))
-        .Call2(C_fun, x, na.rm, PACKAGE="IRanges")
+        .Call2(C_fun, x, na.rm, PACKAGE="IRangesGHA")
     }, where)
 }
 
@@ -579,7 +579,7 @@ setCompressedListWhichSummaryMethod <-
     {
         def <- function(x, global = FALSE) {
             stopifnot(isTRUEorFALSE(global))
-            ans <- .Call2(C_fun, x, PACKAGE="IRanges")
+            ans <- .Call2(C_fun, x, PACKAGE="IRangesGHA")
             if (global) {
                 ans <- toglobal(ans, x)
             }

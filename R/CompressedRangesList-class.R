@@ -93,13 +93,13 @@ setMethod(".replaceSEW", "CompressedRangesList",
 setMethod("isNormal", "CompressedIRangesList",
     function(x, use.names=FALSE)
         .Call2("C_isNormal_CompressedIRangesList", x, use.names,
-               PACKAGE="IRanges")
+               PACKAGE="IRangesGHA")
 )
 
 setMethod("summary", "CompressedIRangesList",
     function(object)
         .Call2("C_summary_CompressedIRangesList", object,
-               PACKAGE="IRanges")
+               PACKAGE="IRangesGHA")
 )
 
 
@@ -191,7 +191,7 @@ setMethod("getListElement", "CompressedNormalIRangesList",
         stop("'x' must be a CompressedNormalIRangesList object")
     use.names <- S4Vectors:::normargUseNames(use.names)
     .Call2("C_min_CompressedNormalIRangesList", x, use.names,
-						PACKAGE="IRanges")
+						PACKAGE="IRangesGHA")
 }
 
 setMethod("min", "CompressedNormalIRangesList",
@@ -203,7 +203,7 @@ setMethod("min", "CompressedNormalIRangesList",
         stop("'x' must be a CompressedNormalIRangesList object")
     use.names <- S4Vectors:::normargUseNames(use.names)
     .Call2("C_max_CompressedNormalIRangesList", x, use.names,
-						PACKAGE="IRanges")
+						PACKAGE="IRangesGHA")
 }
 
 setMethod("max", "CompressedNormalIRangesList",

@@ -22,7 +22,7 @@ setMethod("pcompare", c("IPosRanges", "IPosRanges"),
     {
         .Call2("C_pcompare_IPosRanges",
                start(x), width(x), start(y), width(y),
-               PACKAGE="IRanges")
+               PACKAGE="IRangesGHA")
     }
 )
 
