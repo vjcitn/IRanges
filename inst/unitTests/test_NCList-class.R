@@ -1,7 +1,7 @@
 ###
 
-findOverlaps_NCList <- IRanges:::findOverlaps_NCList
-findOverlaps_NCLists <- IRanges:::findOverlaps_NCLists
+findOverlaps_NCList <- IRangesGHA:::findOverlaps_NCList
+findOverlaps_NCLists <- IRangesGHA:::findOverlaps_NCLists
 
 .transpose_hits <- function(hits)
 {

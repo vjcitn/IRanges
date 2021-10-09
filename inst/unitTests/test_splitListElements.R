@@ -2,7 +2,7 @@
 
 test_regroupBySupergroup <- function()
 {
-    regroupBySupergroup <- IRanges:::regroupBySupergroup
+    regroupBySupergroup <- IRangesGHA:::regroupBySupergroup
 
     .do_checks <- function(x, breakpoints, target)
     {
