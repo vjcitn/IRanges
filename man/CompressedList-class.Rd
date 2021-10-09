@@ -141,7 +141,7 @@
     \item The \link[S4Vectors]{SimpleList} class defined and documented in
           the \pkg{S4Vectors} package for an alternative to CompressedList.
 
-    \item \link[IRanges]{relist} and \link[IRanges]{extractList} for
+    \item \link[IRangesGHA]{relist} and \link[IRangesGHA]{extractList} for
           efficiently constructing a \link{List} derivative from a
           vector-like object.
 

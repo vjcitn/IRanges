@@ -20,7 +20,7 @@ setMethod("tile", "IntegerRanges", function(x, n, width, ...) {
   if (!missing(n)) {
     if (!missing(width))
       stop("only one of 'n' and 'width' can be specified")
-    if (any(IRanges::width(x) < n))
+    if (any(IRangesGHA::width(x) < n))
       stop("some width(x) are less than 'n'")
     if (any(n < 0L))
       stop("some 'n' are negative")
@@ -33,7 +33,7 @@ setMethod("tile", "IntegerRanges", function(x, n, width, ...) {
       stop("some 'width' are negative")
     n <- ceiling(width(x) / width)
   }
-  width <- IRanges::width(x) / n
+  width <- IRangesGHA::width(x) / n
   ## The floor() is intentional for compatibility with Jim Kent's BigWig code
   ## tileGenome() uses ceiling() instead
   tile.end <- floor(unlist_as_integer(IRanges(rep(1L, length(n)), width=n)) *

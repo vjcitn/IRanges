@@ -60,8 +60,6 @@
     length, the shortest will be recycled to match the length of the 
     longest.
   }
-  \item{hits}{The hits between \code{x} and \code{subject}}
-  \item{...}{Additional arguments for methods}
 }
 
 \details{

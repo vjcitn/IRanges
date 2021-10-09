@@ -1,34 +1,30 @@
-%\VignetteIndexEntry{An Overview of the IRanges package}
-%\VignetteDepends{IRanges}
-%\VignetteKeywords{Ranges,IntegerRanges,IRanges,IRangesList,Views,AtomicList}
-%\VignettePackage{IRanges}
+---
+title: "An Overview of the IRanges package"
+shorttitle: "outlier dytection methods"
+author: "Patrick Aboyoun, Michael Lawrence, Herve Pages"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{An Overview of the IRanges package}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    highlight: pygments
+    number_sections: yes
+    theme: united
+    toc: yes
+---
 
-\documentclass{article}
 
-\usepackage[authoryear,round]{natbib}
-
-<<style, echo=FALSE, results=tex>>=
-BiocStyle::latex(use.unsrturl=FALSE)
-@
-
-\title{An Overview of the \Biocpkg{IRanges} package}
-\author{Patrick Aboyoun, Michael Lawrence, Herv\'e Pag\`es}
-\date{Edited: February 2018; Compiled: \today}
-
-\begin{document}
-
-\maketitle
-
-\tableofcontents
-
-<<options,echo=FALSE>>=
+```{r c1, echo=FALSE}
 options(width=72)
-@
+```
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
 
 \section{Introduction}
 
@@ -61,19 +57,19 @@ examples.
 The \Biocpkg{IRanges} package is available at bioconductor.org and can be
 downloaded via \Rfunction{BiocManager::install}:
 
-<<install, eval=FALSE>>=
+```{r install, eval=FALSE}
 if (!require("BiocManager"))
     install.packages("BiocManager")
-BiocManager::install("IRanges")
-@
-<<initialize, results=hide>>=
+BiocManager::install("IRangesGHA")
+```
+```{r initialize, results="hide"}
 library(IRangesGHA)
-@
+```
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 \section{\Rclass{IRanges} objects}
 
@@ -82,7 +78,7 @@ constructor. Ranges are normally specified by passing two out of the three
 parameters: start, end and width (see \Rcode{help(IRanges)} for more
 information).
 %
-<<iranges-constructor>>=
+```{r iranges-constructor}
 ir1 <- IRanges(start=1:10, width=10:1)
 ir1
 ir2 <- IRanges(start=1:10, end=11)
@@ -91,7 +87,7 @@ identical(ir1, ir2) && identical(ir1, ir3)
 ir <- IRanges(c(1, 8, 14, 15, 19, 34, 40),
               width=c(12, 6, 6, 15, 6, 2, 7))
 ir
-@
+```
 %
 All of the above calls construct the same \Rclass{IRanges} object, using
 different combinations of the \Rcode{start}, \Rcode{end} and
@@ -99,29 +95,29 @@ different combinations of the \Rcode{start}, \Rcode{end} and
 
 Accessing the starts, ends and widths is supported via the \Rfunction{start},
 \Rfunction{end} and \Rfunction{width} getters:
-<<iranges-start>>=
+```{r iranges-start}
 start(ir)
-@
-<<iranges-end>>=
+```
+```{r iranges-end}
 end(ir)
-@
-<<iranges-width>>=
+```
+```{r iranges-width}
 width(ir)
-@
+```
 
 Subsetting an \Rclass{IRanges} object is supported, by numeric and logical
 indices:
-<<iranges-subset-numeric>>=
+```{r iranges-subset-numeric}
 ir[1:4]
-@
-<<iranges-subset-logical>>=
+```
+```{r iranges-subset-logical}
 ir[start(ir) <= 15]
-@
+```
 
 In order to illustrate range operations, we'll create a function to plot
 ranges.
 
-<<plotRanges>>=
+```{r plotRanges}
 plotRanges <- function(x, xlim=x, main=deparse(substitute(x)),
                        col="black", sep=0.5, ...) 
 {
@@ -136,11 +132,11 @@ plotRanges <- function(x, xlim=x, main=deparse(substitute(x)),
   title(main)
   axis(1)
 }
-@
+```
 
-<<ir-plotRanges, fig=TRUE, include=FALSE, eps=FALSE, height=2.25>>=
+```{r ir-plotRanges, fig=TRUE, include=FALSE, eps=FALSE, height=2.25}
 plotRanges(ir)
-@
+```
 
 \begin{figure}[tb]
   \begin{center}
@@ -173,10 +169,10 @@ simplifies comparisons.
 
 The \Rfunction{reduce} function reduces any \Rclass{IRanges}
 object to a \Rclass{NormalIRanges} by merging redundant ranges.
-<<ranges-reduce, fig=TRUE, include=FALSE, eps=FALSE, height=2.25>>=
+```{r ranges-reduce, fig=TRUE, include=FALSE, eps=FALSE, height=2.25}
 reduce(ir)
 plotRanges(reduce(ir))
-@
+```
 
 \begin{figure}[tb]
   \begin{center}
@@ -202,13 +198,13 @@ section of this document.
 
 To explicitly construct an \Rclass{IRangesList}, use the
 \Rfunction{IRangesList} function.
-<<rangeslist-contructor>>=
+```{r rangeslist-contructor}
 rl <- IRangesList(ir, rev(ir))
-@
+```
 %
-<<rangeslist-start>>=
+```{r rangeslist-start}
 start(rl)
-@
+```
 
 \subsection{Vector Extraction}
 
@@ -220,7 +216,7 @@ If the sequence is a \Rclass{Vector} subclass (i.e. not an ordinary
 \Rclass{vector}), the canonical \Rfunction{[} function accepts an
 \Rclass{IRanges} object.
 %
-<<bracket-ranges>>=
+```{r bracket-ranges}
 set.seed(0)
 lambda <- c(rep(0.001, 4500), seq(0.001, 10, length=500),
             seq(10, 0.001, length=500))
@@ -230,7 +226,7 @@ xRle <- Rle(xVector)
 yRle <- Rle(yVector)
 irextract <- IRanges(start=c(4501, 4901) , width=100)
 xRle[irextract]
-@
+```
 %
 
 \subsection{Finding Overlapping Ranges}
@@ -238,17 +234,17 @@ xRle[irextract]
 The function \Rfunction{findOverlaps} detects overlaps between two
 \Rclass{IRanges} objects.
 
-<<overlap-ranges>>=
+```{r overlap-ranges}
 ol <- findOverlaps(ir, reduce(ir))
 as.matrix(ol)
-@
+```
 
 \subsection{Counting Overlapping Ranges}
 
 The function \Rfunction{coverage} counts the number of ranges over each
 position.
 
-<<ranges-coverage, fig=TRUE, include=FALSE, eps=FALSE, height=2.25>>=
+```{r ranges-coverage, fig=TRUE, include=FALSE, eps=FALSE, height=2.25}
 cov <- coverage(ir)
 plotRanges(ir)
 cov <- as.vector(cov)
@@ -258,7 +254,7 @@ mat <- rbind(cbind(mat[d,1]+1, mat[d,2]), mat)
 mat <- mat[order(mat[,1]),]
 lines(mat, col="red", lwd=4)
 axis(2)
-@
+```
 
 \begin{figure}[tb]
   \begin{center}
@@ -287,9 +283,9 @@ Perhaps the simplest transformation is to adjust the start values by a
 scalar offset, as performed by the \Rfunction{shift} function. Below,
 we shift all ranges forward 10 positions.
 %
-<<ranges-shift>>=
+```{r ranges-shift}
 shift(ir, 10)
-@
+```
 
 There are several other ways to transform ranges.  These include
 \Rfunction{narrow}, \Rfunction{resize}, \Rfunction{flank},
@@ -299,25 +295,25 @@ and width values, which should be relative to each range. These adjustments
 are vectorized over the ranges. As its name suggests, the ranges can only be
 narrowed.
 % 
-<<ranges-narrow>>=
+```{r ranges-narrow}
 narrow(ir, start=1:5, width=2)
-@
+```
 
 The \Rfunction{restrict} function ensures every range falls within a
 set of bounds. Ranges are contracted as necessary, and the ranges that
 fall completely outside of but not adjacent to the bounds are dropped,
 by default.
 % 
-<<ranges-restrict>>=
+```{r ranges-restrict}
 restrict(ir, start=2, end=3)
-@
+```
 The \Rfunction{threebands} function extends \Rfunction{narrow} so that
 the remaining left and right regions adjacent to the narrowed region
 are also returned in separate \Rclass{IRanges} objects.
 % 
-<<ranges-threebands>>=
+```{r ranges-threebands}
 threebands(ir, start=1:5, width=2)
-@
+```
 
 The arithmetic operators \Rfunction{+}, \Rfunction{-} and
 \Rfunction{*} change both the start and the end/width by symmetrically
@@ -325,17 +321,17 @@ expanding or contracting each range.  Adding or subtracting a numeric
 (integer) vector to an \Rclass{IRanges} causes each range to be
 expanded or contracted on each side by the corresponding value in the
 numeric vector.
-<<ranges-plus>>=
+```{r ranges-plus}
 ir + seq_len(length(ir))
-@
+```
 %
 The \Rfunction{*} operator symmetrically magnifies an \Rclass{IRanges}
 object by a factor, where positive contracts (zooms in) and negative
 expands (zooms out).
 %
-<<ranges-asterisk>>=
+```{r ranges-asterisk}
 ir * -2 # double the width
-@
+```
 
 WARNING: The semantic of these arithmetic operators might be revisited
 at some point. Please restrict their use to the context of interactive
@@ -352,10 +348,10 @@ The \Rfunction{disjoin} function makes an \Rclass{IRanges} object
 disjoint by fragmenting it into the widest ranges where the set of
 overlapping ranges is the same.
 
-<<ranges-disjoin, fig=TRUE, include=FALSE, eps=FALSE, height=2.25>>=
+```{r ranges-disjoin, fig=TRUE, include=FALSE, eps=FALSE, height=2.25}
 disjoin(ir)
 plotRanges(disjoin(ir))
-@
+```
 
 \begin{figure}[tb]
   \begin{center}
@@ -368,25 +364,25 @@ plotRanges(disjoin(ir))
 A variant of \Rfunction{disjoin} is \Rfunction{disjointBins}, which
 divides the ranges into bins, such that the ranges in each bin are
 disjoint. The return value is an integer vector of the bins.
-<<ranges-disjointBins>>=
+```{r ranges-disjointBins}
 disjointBins(ir)
-@
+```
 
 \subsubsection{Other transformations}
 
 Other transformations include \Rfunction{reflect} and
 \Rfunction{flank}. The former ``flips'' each range within a set of common
 reference bounds.
-<<ranges-reflect>>=
+```{r ranges-reflect}
 reflect(ir, IRanges(start(ir), width=width(ir)*2))
-@
+```
 %
 The \Rfunction{flank} returns ranges of a specified width that flank,
 to the left (default) or right, each input range. One use case of this
 is forming promoter regions for a set of genes.
-<<ranges-flank>>=
+```{r ranges-flank}
 flank(ir, width=seq_len(length(ir)))
-@
+```
 %
 
 \subsection{Set Operations}
@@ -407,10 +403,10 @@ The \textit{complement} operation is implemented by the
 \Rfunction{gaps} will return the ranges that fall between the ranges
 in the (normalized) input. It is possible to specify a set of bounds,
 so that flanking ranges are included.
-<<ranges-gaps, fig=TRUE, include=FALSE, eps=FALSE, height=2.25>>=
+```{r ranges-gaps, fig=TRUE, include=FALSE, eps=FALSE, height=2.25}
 gaps(ir, start=1, end=50)
 plotRanges(gaps(ir, start=1, end=50), c(1,50))
-@
+```
 
 \begin{figure}[tb]
   \begin{center}
@@ -425,32 +421,32 @@ plotRanges(gaps(ir, start=1, end=50), c(1,50))
 \Rclass{IRanges} objects and finds the range, if any, between
 them. Note that the function name is singular, suggesting that only
 one range is returned per range in the input.
-<<ranges-pgap>>=
-@
+```{r ranges-pgap}
+```
 
 The remaining operations, \textit{union}, \textit{intersect} and
 \textit{difference} are implemented by the \Rfunction{[p]union},
 \Rfunction{[p]intersect} and \Rfunction{[p]setdiff} functions,
 respectively. These are relatively self-explanatory.
-<<ranges-union>>=
-@
-<<ranges-punion>>=
-@
-<<ranges-intersect>>=
-@
-<<ranges-pintersect>>=
-@
-<<ranges-setdiff>>=
-@
-<<ranges-psetdiff>>=
-@
+```{r ranges-union}
+```
+```{r ranges-punion}
+```
+```{r ranges-intersect}
+```
+```{r ranges-pintersect}
+```
+```{r ranges-setdiff}
+```
+```{r ranges-psetdiff}
+```
 
 % \subsection{Mapping Ranges Between Vectors}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 \section{Vector Views}
 
@@ -469,12 +465,12 @@ There are two basic constructors for creating views: the \Rfunction{Views}
 function based on indicators and the \Rfunction{slice} based on numeric
 boundaries.
 
-<<Views-constructors>>=
+```{r Views-constructors}
 xViews <- Views(xRle, xRle >= 1)
 xViews <- slice(xRle, 1)
 xRleList <- RleList(xRle, 2L * rev(xRle))
 xViewsList <- slice(xRleList, 1)
-@
+```
 
 Note that \Rclass{RleList} objects will be covered later in more details
 in the ``Lists of Atomic Vectors'' section of this document.
@@ -486,17 +482,17 @@ functions \Rfunction{viewMaxs}, \Rfunction{viewMins}, \Rfunction{viewSums},
 and \Rfunction{viewMeans} provide fast looping to calculate their respective
 statistical summaries.
 
-<<views-looping>>=
+```{r views-looping}
 head(viewSums(xViews))
 viewSums(xViewsList)
 head(viewMaxs(xViews))
 viewMaxs(xViewsList)
-@
+```
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 \section{Lists of Atomic Vectors}
 
@@ -509,9 +505,9 @@ They are subclasses of the \Rclass{AtomicList} virtual class which is
 itself a subclass of the \Rclass{List} virtual class defined in the
 \Biocpkg{S4Vectors} package.
 
-<<AtomicList-intro>>=
+```{r AtomicList-intro}
 showClass("RleList")
-@
+```
 
 As the class definition above shows, the \Rclass{RleList} class is virtual
 with subclasses \Rclass{SimpleRleList} and \Rclass{CompressedRleList}. A
@@ -536,7 +532,7 @@ whether or not to create the simple list object type or the compressed
 list object type. The default is to create the compressed list object
 type.
 
-<<list-construct>>=
+```{r list-construct}
 args(IntegerList)
 cIntList1 <- IntegerList(x=xVector, y=yVector)
 cIntList1
@@ -548,7 +544,7 @@ cIntList2 <- IntegerList(xExploded)
 sIntList2 <- IntegerList(xExploded, compress=FALSE)
 object.size(cIntList2)
 object.size(sIntList2)
-@
+```
 
 The \Rfunction{length} function returns the number of elements in a
 \Rclass{Vector}-derived object and, for a \Rclass{List}-derived object
@@ -556,10 +552,10 @@ like ``simple list" or ``compressed list", the \Rfunction{lengths}
 function returns an integer vector containing the lengths of each of the
 elements:
 
-<<list-length>>=
+```{r list-length}
 length(cIntList2)
 Rle(lengths(cIntList2))
-@
+```
 
 Just as with ordinary \R{} \Rclass{list} objects, \Rclass{List}-derived
 object support the \Rfunction{[[} for element extraction, \Rfunction{c}
@@ -569,13 +565,13 @@ faster during computations since only the non-empty elements are looped over
 during the \Rfunction{lapply}/\Rfunction{sapply} computation and all the empty
 elements are assigned the appropriate value based on their status.
 
-<<list-lapply>>=
+```{r list-lapply}
 system.time(sapply(xExploded, mean))
 system.time(sapply(sIntList2, mean))
 system.time(sapply(cIntList2, mean))
 identical(sapply(xExploded, mean), sapply(sIntList2, mean))
 identical(sapply(xExploded, mean), sapply(cIntList2, mean))
-@
+```
 
 Unlike ordinary \R{} \Rclass{list} objects, \Rclass{AtomicList} objects support
 the \Rfunction{Ops} (e.g. \Rfunction{+}, \Rfunction{==}, \Rfunction{\&}),
@@ -584,35 +580,35 @@ the \Rfunction{Ops} (e.g. \Rfunction{+}, \Rfunction{==}, \Rfunction{\&}),
 \Rfunction{Summary} (e.g. \Rfunction{min}, \Rfunction{max}, \Rfunction{sum}),
 and \Rfunction{Complex} (e.g. \Rfunction{Re}, \Rfunction{Im}) group generics.
 
-<<list-groupgenerics>>=
+```{r list-groupgenerics}
 xRleList > 0
 yRleList <- RleList(yRle, 2L * rev(yRle))
 xRleList + yRleList
 sum(xRleList > 0 | yRleList > 0)
-@
+```
 
 Since these atomic lists inherit from \Rclass{List}, they can also use
 the looping function \Rfunction{endoapply} to perform endomorphisms.
 
-<<list-endoapply>>=
+```{r list-endoapply}
 safe.max <- function(x) { if(length(x)) max(x) else integer(0) }
 endoapply(sIntList2, safe.max)
 endoapply(cIntList2, safe.max)
 endoapply(sIntList2, safe.max)[[1]]
-@
+```
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 \section{Session Information}
 
 Here is the output of \Rcode{sessionInfo()} on the system on which this
 document was compiled:
 
-<<SessionInfo, echo=FALSE>>=
+```{r SessionInfo, echo=FALSE}
 sessionInfo()
-@
+```
 
 \end{document}

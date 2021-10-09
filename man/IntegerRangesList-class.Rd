@@ -74,7 +74,7 @@
   }
   Note that the \emph{Vector class hierarchy} has many more classes.
   In particular \link[S4Vectors]{Vector}, \link[S4Vectors]{List},
-  \link[IRanges]{RangesList}, and \link[IRanges]{IntegerRangesList}
+  \link[IRangesGHA]{RangesList}, and \link[IRangesGHA]{IntegerRangesList}
   have other subclasses not shown here.
 }
 
