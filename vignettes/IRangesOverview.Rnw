@@ -67,7 +67,7 @@ if (!require("BiocManager"))
 BiocManager::install("IRanges")
 @
 <<initialize, results=hide>>=
-library(IRanges)
+library(IRangesGHA)
 @
 
 

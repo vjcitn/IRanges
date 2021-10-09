@@ -1,4 +1,4 @@
-useDynLib(IRanges)
+useDynLib(IRangesGHA)
 
 import(methods)
 importFrom(utils, stack, read.table)

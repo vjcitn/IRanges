@@ -342,7 +342,7 @@ stopifnot(identical(coverage(reduce(x)), shaved_cvg0))
 ## ---------------------------------------------------------------------
 dummy_coverage <- function(x, shift=0L, width=NULL)
 {
-    y <- IRanges:::unlist_as_integer(shift(x, shift))
+    y <- IRangesGHA:::unlist_as_integer(shift(x, shift))
     if (is.null(width))
         width <- max(c(0L, y))
     Rle(tabulate(y,  nbins=width))
