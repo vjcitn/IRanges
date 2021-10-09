@@ -1,5 +1,11 @@
 Package: IRangesGHA
 Title: Foundation of integer range manipulation in Bioconductor
+Authors@R:
+    person(given = "Bioconductor",
+           family = "Maintainer",
+           role = c("aut", "cre"),
+           email = "stvjc@channing.harvard.edu"
+           )
 Description: Provides efficient low-level and highly reusable S4
 	classes for storing, manipulating and aggregating over annotated
 	ranges of integers. Implements an algebra of range operations,
@@ -13,8 +19,6 @@ BugReports: https://github.com/Bioconductor/IRanges/issues
 Version: 2.27.0001
 License: Artistic-2.0
 Encoding: UTF-8
-Author: H. Pagès, P. Aboyoun and M. Lawrence
-Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Depends: R (>= 4.0.0), methods, utils, stats,
 	BiocGenerics (>= 0.37.0), S4Vectors (>= 0.29.19)
 Imports: stats4
